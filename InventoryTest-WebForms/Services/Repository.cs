@@ -21,6 +21,13 @@ namespace InventoryTest_WebForms.Services
             return entity;
         }
 
+        public IEnumerable<T> CreateRange(IEnumerable<T> entities)
+        {
+            _db.Set<T>().AddRange(entities);
+            SaveChanges ();
+            return entities;
+        }
+
         public bool Delete(T entity)
         {
            _db.Set<T>().Remove(entity);

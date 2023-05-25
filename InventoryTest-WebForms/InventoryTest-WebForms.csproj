@@ -442,6 +442,10 @@
     <Compile Include="Migrations\202305231504050_initdb.designer.cs">
       <DependentUpon>202305231504050_initdb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305250709235_CorrectMissedNavigationProperties.cs" />
+    <Compile Include="Migrations\202305250709235_CorrectMissedNavigationProperties.designer.cs">
+      <DependentUpon>202305250709235_CorrectMissedNavigationProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DBModels\Client.cs" />
     <Compile Include="Models\DBModels\Invoice.cs" />
@@ -496,6 +500,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202305231504050_initdb.resx">
       <DependentUpon>202305231504050_initdb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305250709235_CorrectMissedNavigationProperties.resx">
+      <DependentUpon>202305250709235_CorrectMissedNavigationProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

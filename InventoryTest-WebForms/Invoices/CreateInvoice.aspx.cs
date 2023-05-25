@@ -16,12 +16,14 @@ namespace InventoryTest_WebForms.Invoices
         private readonly IClientService _clientRepository;
         private readonly IItemService _itemRepository;
         private readonly IRepository<Invoice> _invoiceRepository;
+        private readonly IRepository<InvoiceItem> _invoiceItemRepository;
         string dtInvoiceItems = "dtInvoiceItems";
         public CreateInvoice()
         {
             _clientRepository = new ClientService();
             _itemRepository = new ItemService();
             _invoiceRepository=new Repository<Invoice>();
+            _invoiceItemRepository=new Repository<InvoiceItem>();
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -181,6 +183,13 @@ namespace InventoryTest_WebForms.Invoices
                 if (dt.Rows.Count > 0)
                 {
                     Invoice invoice = new Invoice();
+
+                    invoice.InvoiceValue = float.Parse(txtInvoiceTotalPrice.Text);
+                    invoice.InvoiceNetValue = float.Parse(txtInvoiceNetPrice.Text);
+                    invoice.DiscountValue = float.Parse(txtInvoiceDiscountPrice.Text);
+                    invoice.DiscountPercentage= float.Parse(txtInvoiceDiscountPercentage.Text);
+                    invoice.ClientId_FK = int.Parse(txtClientID.Text);
+                    _invoiceRepository.Create(invoice);
                     List<InvoiceItem> items = new List<InvoiceItem>();
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
@@ -189,17 +198,12 @@ namespace InventoryTest_WebForms.Invoices
                             ItemId_FK = int.Parse(dt.Rows[i]["ItemID"].ToString()),
                             Quantity = int.Parse(dt.Rows[i]["Quantity"].ToString()),
                             UintPrice = int.Parse(dt.Rows[i]["ItemPrice"].ToString()),
-                            TotalPrice = int.Parse(dt.Rows[i]["TotalPrice"].ToString())
+                            TotalPrice = int.Parse(dt.Rows[i]["TotalPrice"].ToString()),
+                             InvoiceId_FK=invoice.Id
                         });
                     }
-                    invoice.InvoiceItems= items;
-                    invoice.InvoiceValue = float.Parse(txtInvoiceTotalPrice.Text);
-                    invoice.InvoiceNetValue = float.Parse(txtInvoiceNetPrice.Text);
-                    invoice.DiscountValue = float.Parse(txtInvoiceDiscountPrice.Text);
-                    invoice.DiscountPercentage= float.Parse(txtInvoiceDiscountPercentage.Text);
-                    invoice.ClientId_FK = int.Parse(txtClientID.Text);
-                    _invoiceRepository.Create(invoice);
-                    Response.Redirect("Default");
+                    _invoiceItemRepository.CreateRange(items);
+                    Response.Redirect("/Default");
                 }
             }
         }

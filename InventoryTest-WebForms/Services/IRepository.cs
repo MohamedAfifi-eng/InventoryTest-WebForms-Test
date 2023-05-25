@@ -14,5 +14,6 @@ namespace InventoryTest_WebForms.Services
         bool Delete(T entity);
         T FindById(int id);
         int SaveChanges();
+        IEnumerable<T> CreateRange(IEnumerable<T> entities);    
     }
 }

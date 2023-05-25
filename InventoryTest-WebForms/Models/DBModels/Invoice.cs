@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Permissions;
 using System.Web;
@@ -17,6 +18,7 @@ namespace InventoryTest_WebForms.Models.DBModels
         public float InvoiceNetValue { get; set; }
 
         #region Navigation Properties 
+        [ForeignKey(nameof(ClientId_FK))]
         public Client Client { get; set; }
         public IEnumerable<InvoiceItem> InvoiceItems { get; set; }
         #endregion
