@@ -1,0 +1,9 @@
+﻿body {
+}
+.Section{
+    padding:1rem;
+    background-color:lightsteelblue;
+    border:1px solid #ddd;
+    border-radius:6px;
+    margin:1rem 0px;
+}
